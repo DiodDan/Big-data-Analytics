@@ -12,3 +12,4 @@ In late October, NVIDIA released the new RTX 40 series line up of commercial use
 ## Problem Definition
 
 To better understand the consumer sentiment towards the RTX 40 Series graphics cards and their shortcomings against the compettitiors in the market.
+
