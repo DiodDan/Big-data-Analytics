@@ -71,3 +71,5 @@ FROM processed_competitors; -- This should be changed to table name on different
 |-------------|---------|-------|--------|-----|-----|-------|-------|-------|-------|-------|
 | Competitors | 24      | 58    | 34     | 9   | 15  | 4     | 40    | 2     | 0     | 0     |
 | Nvidia      | 461     | 78    | 23     | 23  | 15  | 8     | 7     | 2     | 2     | 1     |
+
+
