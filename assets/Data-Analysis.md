@@ -79,4 +79,99 @@ FROM processed_competitors; -- This should be changed to table name on different
 | Competitors | 24      | 58    | 34     | 9   | 15  | 4     | 40    | 2     | 0     | 0     |
 | Nvidia      | 461     | 78    | 23     | 23  | 15  | 8     | 7     | 2     | 2     | 1     |
 
+## Next question is:
 
+#### `What countries were the most involved in the discussion? (Geographic)`
+
+```postgresql
+SELECT SUM(CAST(content ILIKE '%ample%' AS INTEGER))                                                   AS goodword_ample,
+       SUM(CAST(content ILIKE '%high%' AS INTEGER))                                                    AS goodword_high,
+       SUM(CAST(content ILIKE '%cool%' AS INTEGER))                                                    AS goodword_cool,
+       SUM(CAST(content ILIKE '%top-notch%' OR content ILIKE '%top notch%' AS INTEGER))                AS goodword_top,
+       SUM(CAST(content ILIKE '%seamless%' AS INTEGER))                                                AS goodword_seamless,
+       SUM(CAST(content ILIKE '%amazing%' OR content ILIKE '%amaze%' AS INTEGER))                      AS goodword_amaze,
+       SUM(CAST(content ILIKE '%beautiful%' OR content ILIKE '%beauty%' AS INTEGER))                   AS goodword_beauty,
+       SUM(CAST(content ILIKE '%plentiful%' OR content ILIKE '%plenty%' AS INTEGER))                   AS goodword_plenty,
+       SUM(CAST(content ILIKE '%efficient%' AS INTEGER))                                               AS goodword_efficient,
+       SUM(CAST(content ILIKE '%excellent%' OR content ILIKE '%excellency%' OR content ILIKE
+                                                                               '%excels%' AS INTEGER)) AS goodword_excellent,
+       SUM(CAST(content ILIKE '%great%' OR content ILIKE '%greatness%' OR content ILIKE '%greatest%' AS
+           INTEGER))                                                                                   AS goodword_great,
+       SUM(CAST(content ILIKE '%innovative%' AS INTEGER))                                              AS goodword_innovative,
+       SUM(CAST(content ILIKE '%impressive%' OR content ILIKE '%impress%' AS INTEGER))                 AS goodword_impress,
+       SUM(CAST(content ILIKE '%solid%' AS INTEGER))                                                   AS goodword_solid,
+       SUM(CAST(content ILIKE '%flawless%' AS INTEGER))                                                AS goodword_flawless,
+       SUM(CAST(content ILIKE '%smooth%' AS INTEGER))                                                  AS goodword_smooth,
+       SUM(CAST(content ILIKE '%fantastic%' AS INTEGER))                                               AS goodword_fantastic,
+       SUM(CAST(content ILIKE '%outstanding%' AS INTEGER))                                             AS goodword_outstanding,
+       SUM(CAST(content ILIKE '%good%' AS INTEGER))                                                    AS goodword_good
+FROM processed_competitors; -- This should be changed to table name on different observations
+
+```
+
+| Keyword              | amount_for_competitors | amount_for_nvidia |
+|----------------------|------------------------|-------------------|
+| goodword_ample       | 4                      | 7                 |
+| goodword_high        | 175                    | 255               |
+| goodword_cool        | 81                     | 144               |
+| goodword_top         | 0                      | 0                 |
+| goodword_seamless    | 3                      | 7                 |
+| goodword_amaze       | 23                     | 33                |
+| goodword_beauty      | 18                     | 31                |
+| goodword_plenty      | 5                      | 3                 |
+| goodword_efficient   | 17                     | 45                |
+| goodword_excellent   | 21                     | 8                 |
+| goodword_great       | 54                     | 47                |
+| goodword_innovative  | 3                      | 4                 |
+| goodword_impress     | 25                     | 31                |
+| goodword_solid       | 11                     | 21                |
+| goodword_flawless    | 0                      | 0                 |
+| goodword_smooth      | 8                      | 24                |
+| goodword_fantastic   | 15                     | 7                 |
+| goodword_outstanding | 4                      | 3                 |
+| goodword_good        | 61                     | 69                |
+
+### Table for badwords
+
+```postgresql
+SELECT SUM(CAST(content ILIKE '%insufficient%' OR content ILIKE '%insufficiency%' AS INTEGER))                AS badword_insufficient
+     , SUM(CAST(content ILIKE '%low%' OR content ILIKE '%lower%' OR content ILIKE '%lowest%' AS INTEGER))     AS badword_low
+     , SUM(CAST(content ILIKE '%overheating%' OR content ILIKE '%overheated%' AS INTEGER))                    AS badword_overheating
+     , SUM(CAST(content ILIKE '%disappointing%' OR content ILIKE '%dissapointed%' AS INTEGER))                AS badword_disappointing
+     , SUM(CAST(content ILIKE '%limited%' OR content ILIKE '%limiting%' AS INTEGER))                          AS badword_limited
+     , SUM(CAST(content ILIKE '%poor%' OR content ILIKE '%poorer%' OR content ILIKE '%poorest%' AS INTEGER))  AS badword_poor
+     , SUM(CAST(content ILIKE '%subpar%' AS INTEGER))                                                         AS badword_subpar
+     , SUM(CAST(content ILIKE '%lacking%' OR content ILIKE '%lacked%' AS INTEGER))                            AS badword_lacking
+
+     , SUM(CAST(content ILIKE '%power-hungry%' OR content ILIKE '%power hungry%' AS INTEGER))                 AS badword_power_hungry
+     , SUM(CAST(content ILIKE '%terrible%' AS INTEGER))                                                       AS badword_terrible
+     , SUM(CAST(content ILIKE '%underwhelming%' OR content ILIKE '%underwhelmed%' AS INTEGER))                AS badword_underwhelming
+     , SUM(CAST(content ILIKE '%struggling%' OR content ILIKE '%struggled%' AS INTEGER))                      AS badword_struggling
+     , SUM(CAST(content ILIKE '%suboptimal%' OR content ILIKE '%sub optimal%' OR content ILIKE
+                                                                                 '%sub-optimal%' AS INTEGER)) AS badword_suboptimal
+     , SUM(CAST(content ILIKE '%overhyped%' OR content ILIKE '%over hyped%' OR content ILIKE
+                                                                               '%over-hyped%' AS INTEGER))    AS badword_overhyped
+     , SUM(CAST(content ILIKE '%lacking%' OR content ILIKE '%lacked%' AS INTEGER))                            AS badword_lacking
+     , SUM(CAST(content ILIKE '%bad%' AS INTEGER))                                                            AS badword_bad
+FROM processed_competitors; -- This should be changed to table name on different observations
+
+```
+
+| Keyword               | amount_for_competitors | amount_for_nvidia |
+|-----------------------|------------------------|-------------------|
+| badword_insufficient  | 0                      | 0                 |
+| badword_low           | 182                    | 318               |
+| badword_overheating   | 1                      | 3                 |
+| badword_disappointing | 2                      | 5                 |
+| badword_limited       | 54                     | 47                |
+| badword_poor          | 3                      | 3                 |
+| badword_subpar        | 0                      | 0                 |
+| badword_lacking       | 2                      | 1                 |
+| badword_power_hungry  | 0                      | 0                 |
+| badword_terrible      | 3                      | 1                 |
+| badword_underwhelming | 1                      | 1                 |
+| badword_struggling    | 2                      | 2                 |
+| badword_suboptimal    | 0                      | 0                 |
+| badword_overhyped     | 0                      | 0                 |
+| badword_lacking       | 2                      | 1                 |
+| badword_bad           | 10                     | 20                |
