@@ -81,7 +81,7 @@ FROM processed_competitors; -- This should be changed to table name on different
 
 ## Next question is:
 
-#### `What countries were the most involved in the discussion? (Geographic)`
+#### `Keywords Associated with the RTX 4000 series graphics card. (Keywords)`
 
 ```postgresql
 SELECT SUM(CAST(content ILIKE '%ample%' AS INTEGER))                                                   AS goodword_ample,
